@@ -1,0 +1,117 @@
+.history-panel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.history-title {
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.history-subtitle {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    font-style: italic;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+}
+
+.history-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.history-empty {
+    padding: var(--spacing-lg);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.history-event {
+    display: flex;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) 0;
+}
+
+.history-event.locked {
+    opacity: 0.5;
+}
+
+.history-event-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20px;
+    flex-shrink: 0;
+}
+
+.marker-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--bg-card-hover);
+    border: 2px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.marker-dot.positive {
+    background: var(--accent-green);
+    border-color: var(--accent-green);
+}
+
+.marker-dot.negative {
+    background: var(--accent-red);
+    border-color: var(--accent-red);
+}
+
+.marker-dot.neutral {
+    background: var(--accent-cyan);
+    border-color: var(--accent-cyan);
+}
+
+.marker-line {
+    flex: 1;
+    width: 2px;
+    background: var(--border-color);
+    margin-top: var(--spacing-xs);
+}
+
+.history-event-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    flex: 1;
+}
+
+.history-event-title {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.history-event-month {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+}
+
+.history-event-desc {
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.history-event-locked {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+}

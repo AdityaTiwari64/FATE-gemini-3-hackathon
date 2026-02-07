@@ -1,34 +1,58 @@
 import { useState } from 'react'
-import { testGemini } from './services/api'
+import { GameProvider, useGameState, useGameDispatch } from './context/GameContext'
+import { getScenarioByMonth } from './data/mockData'
+import Header from './components/Header'
+import StatsPanel from './components/StatsPanel'
+import ScenarioCard from './components/ScenarioCard'
+import HistoryPanel from './components/HistoryPanel'
 import './App.css'
 
-function App() {
-  const [response, setResponse] = useState('')
+function GameContent() {
+  const gameState = useGameState()
+  const dispatch = useGameDispatch()
+  const [currentScenario, setCurrentScenario] = useState(() => getScenarioByMonth(gameState.month))
 
-  const handleTestClick = async () => {
-    setResponse('Loading...')
-    try {
-      const result = await testGemini()
-      setResponse(result)
-    } catch (error) {
-      setResponse('Error: ' + error.message)
-    }
+  const handleChoiceSelect = (choice) => {
+    dispatch({ type: 'SELECT_CHOICE', payload: { choice } })
+    dispatch({ type: 'NEXT_MONTH' })
+
+    // Load next scenario after a brief delay
+    setTimeout(() => {
+      setCurrentScenario(getScenarioByMonth(gameState.month + 1))
+    }, 300)
   }
 
   return (
-    <div className="app-container">
-      <h1>Gemini Hackathon Starter</h1>
-      <button onClick={handleTestClick}>Test Gemini</button>
-      <br />
-      <textarea
-        readOnly
-        value={response}
-        placeholder="API response will appear here..."
-        rows={10}
-        cols={50}
-        style={{ marginTop: '20px' }}
+    <div className="app">
+      <Header
+        balance={gameState.balance}
+        month={gameState.month}
+        isActive={true}
       />
+
+      <main className="app-layout">
+        <StatsPanel gameState={gameState} />
+
+        <ScenarioCard
+          scenario={currentScenario}
+          onChoiceSelect={handleChoiceSelect}
+        />
+
+        <HistoryPanel history={gameState.history} />
+      </main>
+
+      <footer className="app-footer">
+        <span className="footer-text">WAITING FOR YOUR INPUT, TRAVELER.</span>
+      </footer>
     </div>
+  )
+}
+
+function App() {
+  return (
+    <GameProvider>
+      <GameContent />
+    </GameProvider>
   )
 }
 

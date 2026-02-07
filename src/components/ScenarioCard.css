@@ -1,0 +1,97 @@
+.scenario-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    position: relative;
+}
+
+.scenario-card.empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+}
+
+.scenario-empty-text {
+    color: var(--text-muted);
+    font-size: var(--font-size-lg);
+}
+
+.scenario-badge {
+    position: absolute;
+    top: var(--spacing-md);
+    left: var(--spacing-md);
+    z-index: 10;
+    padding: var(--spacing-xs) var(--spacing-md);
+    background: var(--accent-green);
+    color: var(--bg-primary);
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.scenario-image {
+    position: relative;
+    height: 200px;
+    background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
+    overflow: hidden;
+}
+
+.scenario-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23334155" opacity="0.3" x="40" y="20" width="20" height="60"/><rect fill="%23475569" opacity="0.3" x="65" y="30" width="15" height="50"/><rect fill="%23334155" opacity="0.3" x="20" y="40" width="15" height="40"/></svg>');
+    background-size: cover;
+}
+
+.scenario-image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to top, var(--bg-secondary), transparent);
+}
+
+.scenario-content {
+    padding: var(--spacing-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.scenario-title {
+    font-size: var(--font-size-2xl);
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.scenario-situation {
+    font-size: var(--font-size-base);
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+.scenario-quote {
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--bg-card);
+    border-left: 3px solid var(--accent-cyan);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+.scenario-choices {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
