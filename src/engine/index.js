@@ -5,6 +5,7 @@ export {
   initializeGameState,
   advanceMonth,
   applyIncome,
+  applyChoice,
   cloneState,
   getNetWorth,
 } from './gameEngine.js';

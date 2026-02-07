@@ -81,6 +81,52 @@ export function applyIncome(state, income = DEFAULT_MONTHLY_INCOME) {
   };
 }
 
+/**
+ * @typedef {Object} Choice
+ * @property {number} balanceChange - Amount to add/subtract from balance
+ * @property {number} [savingsChange=0] - Amount to add/subtract from savings (optional)
+ * @property {number} riskChange - Amount to add/subtract from riskScore
+ * @property {string} [description] - Optional description of the choice
+ */
+
+/**
+ * Applies a player's choice/decision to the game state
+ * @param {GameState} state - Current game state
+ * @param {Choice} choice - The choice to apply
+ * @returns {GameState} - Updated game state
+ */
+export function applyChoice(state, choice) {
+  const { balanceChange, savingsChange = 0, riskChange, description = '' } = choice;
+
+  // Calculate new balance, prevent going below zero
+  const newBalance = Math.max(0, state.balance + balanceChange);
+
+  // Calculate new savings, prevent going below zero
+  const newSavings = Math.max(0, state.savings + savingsChange);
+
+  // Calculate new risk score, clamp between 0 and 100
+  const newRiskScore = Math.max(0, Math.min(100, state.riskScore + riskChange));
+
+  // Create history entry for this choice
+  const historyEntry = {
+    type: 'choice',
+    month: state.month,
+    balanceChange,
+    savingsChange,
+    riskChange,
+    description,
+    timestamp: Date.now(),
+  };
+
+  return {
+    ...state,
+    balance: newBalance,
+    savings: newSavings,
+    riskScore: newRiskScore,
+    history: [...state.history, historyEntry],
+  };
+}
+
 // ============================================
 // UTILITY FUNCTIONS
 // ============================================
