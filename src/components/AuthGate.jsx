@@ -3,6 +3,10 @@ import { getUserSession, getPreferences } from '../utils/session'
 import LoginPage from '../pages/LoginPage'
 import SignupPage from '../pages/SignupPage'
 import UsernameSetup from '../pages/UsernameSetup'
+import Archive from '../pages/Archive'
+import Profile from '../pages/Profile'
+import Settings from '../pages/Settings'
+import MathPage from '../pages/Math'
 
 /**
  * AuthGate component handles routing based on session state:
@@ -68,6 +72,22 @@ export default function AuthGate({
 
     if (currentRoute === '#/dashboard') {
         return <DashboardComponent />
+    }
+
+    if (currentRoute === '#/archive') {
+        return <Archive />
+    }
+
+    if (currentRoute === '#/profile') {
+        return <Profile />
+    }
+
+    if (currentRoute === '#/settings') {
+        return <Settings />
+    }
+
+    if (currentRoute === '#/math') {
+        return <MathPage />
     }
 
     // Handle root route based on auth state

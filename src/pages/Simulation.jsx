@@ -1,37 +1,61 @@
 import { useState, useEffect } from 'react'
 import { GameProvider, useGameState, useGameDispatch } from '../context/GameContext'
-import { processChoice, getScenario } from '../utils/processChoice'
+import { processGameChoice } from '../services/gameService'
+import { getUserName } from '../utils/session'
+import ResultModal from '../components/ResultModal'
 
 function SimulationContent() {
     const state = useGameState()
     const dispatch = useGameDispatch()
     const [scenario, setScenario] = useState(null)
     const [isProcessing, setIsProcessing] = useState(false)
+    const [showResultModal, setShowResultModal] = useState(false)
+    const [choiceResult, setChoiceResult] = useState(null)
+    const userName = getUserName()
+
+    // Load scenario instantly from fallback (fast)
+    const loadScenario = async () => {
+        const { getScenario } = await import('../utils/processChoice')
+        setScenario(getScenario(state.month))
+    }
 
     useEffect(() => {
-        if (state.isLoaded) {
-            setScenario(getScenario(state.month))
+        if (state.isLoaded && !scenario) {
+            loadScenario()
         }
-    }, [state.isLoaded, state.month])
+    }, [state.isLoaded])
 
     const handleChoice = async (choice) => {
         setIsProcessing(true)
 
-        // Simulate API delay
-        await new Promise(resolve => setTimeout(resolve, 500))
+        // Process choice
+        const result = processGameChoice(choice.id, { choices: scenario.choices }, state)
 
-        const result = processChoice(choice.id, state)
+        // Add calculated changes for the modal
+        const enhancedResult = {
+            ...result,
+            previousState: state,
+            balanceChange: result.updatedState.balance - state.balance,
+            savingsChange: (result.updatedState.savings || 0) - (state.savings || 0)
+        }
 
+        setChoiceResult(enhancedResult)
+
+        // Update game state immediately
         dispatch({
             type: 'PROCESS_CHOICE_RESULT',
             payload: result
         })
 
-        dispatch({ type: 'NEXT_MONTH' })
-
+        // Show modal
+        setShowResultModal(true)
         setIsProcessing(false)
+    }
 
-        // Go to dashboard to show results
+    const handleContinue = () => {
+        setShowResultModal(false)
+        setChoiceResult(null)
+        dispatch({ type: 'NEXT_MONTH' })
         window.location.hash = '#/dashboard'
     }
 
@@ -63,7 +87,7 @@ function SimulationContent() {
             </header>
 
             {/* Main Content - Centered Scenario */}
-            <main className="flex-1 flex items-center justify-center px-8">
+            <main className="flex-1 flex items-center justify-center px-8 relative z-10">
                 <div className="max-w-3xl text-center">
                     <h1
                         className="font-heading text-3xl md:text-5xl font-bold leading-tight mb-12"
@@ -89,6 +113,13 @@ function SimulationContent() {
                 </div>
             </main>
 
+            {/* Result Modal */}
+            <ResultModal
+                isOpen={showResultModal}
+                result={choiceResult}
+                onContinue={handleContinue}
+            />
+
             {/* Footer */}
             <footer className="p-6 flex justify-between items-center border-t border-fate-gray/30">
                 <div className="flex items-center gap-4">
@@ -103,8 +134,8 @@ function SimulationContent() {
                             <span
                                 key={num}
                                 className={`font-mono text-sm ${num === ((state.month - 1) % 3) + 1
-                                        ? 'text-white font-bold'
-                                        : 'text-fate-muted'
+                                    ? 'text-white font-bold'
+                                    : 'text-fate-muted'
                                     }`}
                             >
                                 {String(num).padStart(2, '0')}

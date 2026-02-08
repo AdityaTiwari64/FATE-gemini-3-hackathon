@@ -102,41 +102,97 @@ export function getScenario(month) {
         {
             text: 'Your rent just increased by <span class="text-fate-orange">15%</span> due to new city regulations. You can move, fight it, or pay up.',
             choices: [
-                { id: 'move_out', label: 'MOVE OUT' },
-                { id: 'file_appeal', label: 'FILE APPEAL' },
-                { id: 'accept_increase', label: 'ACCEPT INCREASE' }
+                { id: 'move_out', label: 'MOVE OUT', balanceChange: -8000, savingsChange: -5000, riskChange: 15 },
+                { id: 'file_appeal', label: 'FILE APPEAL', balanceChange: -2000, savingsChange: 0, riskChange: 5 },
+                { id: 'accept_increase', label: 'ACCEPT INCREASE', balanceChange: -3600, savingsChange: 0, riskChange: -5 }
             ]
         },
         {
             text: 'A friend offers you an investment opportunity with potential <span class="text-fate-orange">40%</span> returns. The market is unpredictable.',
             choices: [
-                { id: 'invest_aggressive', label: 'INVEST HEAVILY' },
-                { id: 'invest_conservative', label: 'INVEST SMALL' },
-                { id: 'skip', label: 'PASS' }
+                { id: 'invest_aggressive', label: 'INVEST HEAVILY', balanceChange: -5000, savingsChange: -10000, riskChange: 25 },
+                { id: 'invest_conservative', label: 'INVEST SMALL', balanceChange: -1000, savingsChange: 0, riskChange: 5 },
+                { id: 'skip', label: 'PASS', balanceChange: 0, savingsChange: 0, riskChange: 0 }
             ]
         },
         {
             text: 'Your health insurance is due for renewal. Premium increased by <span class="text-fate-orange">₹1,500</span> this year.',
             choices: [
-                { id: 'buy_insurance', label: 'RENEW POLICY' },
-                { id: 'skip_insurance', label: 'SKIP THIS YEAR' },
-                { id: 'downgrade', label: 'DOWNGRADE PLAN' }
+                { id: 'buy_insurance', label: 'RENEW POLICY', balanceChange: -1500, savingsChange: 0, riskChange: -15 },
+                { id: 'skip_insurance', label: 'SKIP THIS YEAR', balanceChange: 0, savingsChange: 0, riskChange: 20 },
+                { id: 'downgrade', label: 'DOWNGRADE PLAN', balanceChange: -800, savingsChange: 0, riskChange: 5 }
             ]
         },
         {
             text: 'Unexpected medical emergency. Hospital bills total <span class="text-fate-orange">₹12,000</span>. How do you handle it?',
             choices: [
-                { id: 'pay_full', label: 'PAY IN FULL' },
-                { id: 'emi', label: 'EMI PLAN' },
-                { id: 'borrow', label: 'BORROW FROM FAMILY' }
+                { id: 'pay_full', label: 'PAY IN FULL', balanceChange: -12000, savingsChange: 0, riskChange: -10 },
+                { id: 'use_savings', label: 'USE SAVINGS', balanceChange: 0, savingsChange: -12000, riskChange: 5 },
+                { id: 'emi', label: 'EMI PLAN', balanceChange: -2000, savingsChange: 0, riskChange: 10 }
             ]
         },
         {
             text: 'Job offer from a startup. <span class="text-fate-orange">30%</span> salary hike but stock options instead of bonus.',
             choices: [
-                { id: 'accept_offer', label: 'ACCEPT OFFER' },
-                { id: 'negotiate', label: 'NEGOTIATE' },
-                { id: 'decline', label: 'STAY PUT' }
+                { id: 'accept_offer', label: 'ACCEPT OFFER', balanceChange: 8000, savingsChange: 0, riskChange: 20 },
+                { id: 'negotiate', label: 'NEGOTIATE', balanceChange: 5000, savingsChange: 0, riskChange: 10 },
+                { id: 'decline', label: 'STAY PUT', balanceChange: 0, savingsChange: 2000, riskChange: -5 }
+            ]
+        },
+        {
+            text: 'Your laptop crashed. You need it for work. New one costs <span class="text-fate-orange">₹65,000</span>.',
+            choices: [
+                { id: 'buy_new', label: 'BUY NEW', balanceChange: -30000, savingsChange: -35000, riskChange: -5 },
+                { id: 'repair', label: 'REPAIR OLD', balanceChange: -8000, savingsChange: 0, riskChange: 10 },
+                { id: 'buy_used', label: 'BUY REFURBISHED', balanceChange: -25000, savingsChange: 0, riskChange: 5 }
+            ]
+        },
+        {
+            text: 'Your parents need <span class="text-fate-orange">₹20,000</span> for home repairs. Family expectations are high.',
+            choices: [
+                { id: 'send_full', label: 'SEND FULL AMOUNT', balanceChange: -10000, savingsChange: -10000, riskChange: -10 },
+                { id: 'send_partial', label: 'SEND ₹10,000', balanceChange: -10000, savingsChange: 0, riskChange: 0 },
+                { id: 'decline_help', label: 'EXPLAIN SITUATION', balanceChange: 0, savingsChange: 0, riskChange: 5 }
+            ]
+        },
+        {
+            text: 'Crypto is surging. Your friend made <span class="text-fate-orange">₹50,000</span> this week. FOMO is real.',
+            choices: [
+                { id: 'invest_crypto', label: 'INVEST ₹20,000', balanceChange: -10000, savingsChange: -10000, riskChange: 30 },
+                { id: 'small_bet', label: 'TEST WITH ₹5,000', balanceChange: -5000, savingsChange: 0, riskChange: 15 },
+                { id: 'ignore_fomo', label: 'IGNORE THE HYPE', balanceChange: 0, savingsChange: 3000, riskChange: -5 }
+            ]
+        },
+        {
+            text: 'Annual bonus arrived: <span class="text-fate-orange">₹45,000</span>. What do you do with it?',
+            choices: [
+                { id: 'save_all', label: 'SAVE EVERYTHING', balanceChange: 5000, savingsChange: 40000, riskChange: -10 },
+                { id: 'invest_bonus', label: 'INVEST IN MUTUAL FUNDS', balanceChange: 15000, savingsChange: 15000, riskChange: 5 },
+                { id: 'treat_yourself', label: 'TREAT YOURSELF', balanceChange: 45000, savingsChange: 0, riskChange: 0 }
+            ]
+        },
+        {
+            text: 'Your bike needs major servicing. Quote is <span class="text-fate-orange">₹8,000</span> but you could sell it.',
+            choices: [
+                { id: 'service_bike', label: 'GET IT SERVICED', balanceChange: -8000, savingsChange: 0, riskChange: -5 },
+                { id: 'sell_bike', label: 'SELL & USE PUBLIC TRANSPORT', balanceChange: 15000, savingsChange: 10000, riskChange: 10 },
+                { id: 'delay_service', label: 'DELAY FOR NOW', balanceChange: 0, savingsChange: 0, riskChange: 15 }
+            ]
+        },
+        {
+            text: 'Your company offers a <span class="text-fate-orange">₹5,000/month</span> matched savings plan. Do you enroll?',
+            choices: [
+                { id: 'max_savings', label: 'MAX CONTRIBUTION', balanceChange: -5000, savingsChange: 10000, riskChange: -10 },
+                { id: 'partial_savings', label: 'CONTRIBUTE ₹2,500', balanceChange: -2500, savingsChange: 5000, riskChange: -5 },
+                { id: 'skip_plan', label: 'SKIP FOR NOW', balanceChange: 0, savingsChange: 0, riskChange: 5 }
+            ]
+        },
+        {
+            text: 'Emergency fund goal: <span class="text-fate-orange">₹50,000</span>. How much do you set aside this month?',
+            choices: [
+                { id: 'big_deposit', label: 'DEPOSIT ₹15,000', balanceChange: -15000, savingsChange: 15000, riskChange: -15 },
+                { id: 'small_deposit', label: 'DEPOSIT ₹5,000', balanceChange: -5000, savingsChange: 5000, riskChange: -5 },
+                { id: 'skip_deposit', label: 'SKIP THIS MONTH', balanceChange: 0, savingsChange: 0, riskChange: 10 }
             ]
         }
     ]

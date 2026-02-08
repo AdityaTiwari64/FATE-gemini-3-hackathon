@@ -71,3 +71,27 @@ export function clearUserData(userId) {
     localStorage.removeItem(`preferences_${userId}`)
     localStorage.removeItem(`gameState_${userId}`)
 }
+
+/**
+ * Get user's display name
+ * @returns {string} - Username or fallback
+ */
+export function getUserName() {
+    return localStorage.getItem('fate_userName') || 'PLAYER'
+}
+
+/**
+ * Set user's display name
+ * @param {string} name 
+ */
+export function setUserName(name) {
+    localStorage.setItem('fate_userName', name)
+}
+
+/**
+ * Get Gemini API key from environment
+ * @returns {string|null}
+ */
+export function getGeminiApiKey() {
+    return import.meta.env.VITE_GEMINI_API_KEY || null
+}

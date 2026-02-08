@@ -4,14 +4,18 @@ import PreferencesSetup from './pages/PreferencesSetup'
 import Dashboard from './pages/Dashboard'
 import Simulation from './pages/Simulation'
 
+import { GameProvider } from './context/GameContext'
+
 function App() {
   return (
-    <AuthGate
-      LandingComponent={LandingPage}
-      SetupComponent={PreferencesSetup}
-      DashboardComponent={Dashboard}
-      SimulationComponent={Simulation}
-    />
+    <GameProvider>
+      <AuthGate
+        LandingComponent={LandingPage}
+        SetupComponent={PreferencesSetup}
+        DashboardComponent={Dashboard}
+        SimulationComponent={Simulation}
+      />
+    </GameProvider>
   )
 }
 

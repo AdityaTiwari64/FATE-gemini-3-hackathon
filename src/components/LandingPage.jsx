@@ -23,15 +23,15 @@ export default function LandingPage({ onStart }) {
                 </div>
 
                 <div className="hidden md:flex items-center gap-8">
-                    <a href="#simulator" className="font-mono text-xs text-fate-text hover:text-white transition-colors tracking-wider">
+                    <button onClick={onStart} className="font-mono text-xs text-fate-text hover:text-white transition-colors tracking-wider text-left">
                         SIMULATOR
-                    </a>
-                    <a href="#math" className="font-mono text-xs text-fate-text hover:text-white transition-colors tracking-wider">
+                    </button>
+                    <button onClick={() => window.location.hash = '#/math'} className="font-mono text-xs text-fate-text hover:text-white transition-colors tracking-wider text-left">
                         THE MATH
-                    </a>
-                    <a href="#archive" className="font-mono text-xs text-fate-text hover:text-white transition-colors tracking-wider">
+                    </button>
+                    <button onClick={() => window.location.hash = '#/archive'} className="font-mono text-xs text-fate-text hover:text-white transition-colors tracking-wider text-left">
                         ARCHIVE
-                    </a>
+                    </button>
                 </div>
 
                 {/* Auth Section - Show profile dropdown if logged in, otherwise login/signup buttons */}

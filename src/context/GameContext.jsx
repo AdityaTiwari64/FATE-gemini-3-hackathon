@@ -5,6 +5,7 @@ import { getUserSession, saveGameState, getGameState } from '../utils/session'
 const initialState = {
     month: 1,
     balance: 24000,
+    savings: 8000,
     history: [],
     riskExposure: 0,
     stressLevel: 30,
@@ -29,7 +30,9 @@ function gameReducer(state, action) {
                         month: state.month,
                         narrative: action.payload.narrative,
                         reflection: action.payload.reflection,
-                        balanceChange: action.payload.updatedState.balance - state.balance
+                        learningInsight: action.payload.learningInsight,
+                        balanceChange: action.payload.updatedState.balance - state.balance,
+                        savingsChange: (action.payload.updatedState.savings || 0) - (state.savings || 0)
                     }
                 ]
             }
